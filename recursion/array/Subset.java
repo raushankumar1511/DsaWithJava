@@ -4,24 +4,35 @@ import java.util.*;
 
 
 public class Subset {
-    public static void main(String[] args) {
-       int[] arr = {1,2,2};
-        System.out.println(subset(arr));
-        
+    // recursive method
+   void helper(int i, int[] nums, List<Integer> temp, List<List<Integer>> ans){
+        if(i == nums.length){
+            ans.add(new ArrayList<>(temp));
+            return;
+        }
+
+        temp.add(nums[i]);
+        helper(i+1,nums,temp,ans);
+        temp.removeLast();
+        helper(i+1,nums,temp,ans);
     }
-    static List<List<Integer>> subset(int[] arr){
+    public List<List<Integer>> subsets(int[] nums) {
         List<List<Integer>>  outer = new ArrayList<>();
 
-        outer.add(new ArrayList<>());
+        // iterative method;
+        // outer.add(new ArrayList<>());
 
-        for(int num: arr){
-            int n = outer.size();
-            for (int i = 0; i < n; i++) {
-                List<Integer> internal = new ArrayList<>(outer.get(i));
-                internal.add(num);
-                outer.add(internal);
-            }
-        }
+        // for(int num: nums){
+        //     int n = outer.size();
+        //     for (int i = 0; i < n; i++) {
+        //         List<Integer> internal = new ArrayList<>(outer.get(i));
+        //         internal.add(num);
+        //         outer.add(internal);
+        //     }
+        // }
+        // return outer;
+
+        helper(0,nums,new ArrayList<>(), outer);
         return outer;
     }
 
